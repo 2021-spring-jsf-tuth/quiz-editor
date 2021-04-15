@@ -82,4 +82,17 @@ export class AppComponent implements OnInit {
       }
     ];
   }
+
+  jsPromisesOne() {
+    const n = this.quizSvc.getMagicNumber(false);
+    console.log(n);
+    //promises are also called "thenables...."
+    n
+    .then(number => {
+      console.log(number);
+    })
+    .catch(err => {
+      console.error(err);
+    })
+  }
 }
