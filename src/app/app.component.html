@@ -1,5 +1,9 @@
 <div class="container">
-  <div class="row">
+  <div class="mt-3 alert alert-danger" *ngIf="errorLoadingQuizzes">
+    <h3> Error Loading Quizzez</h3>
+    Press "refresh" to try again
+  </div>
+  <div class="row" *ngIf = "!errorLoadingQuizzes">
     <div class="col-md-4">
       <button 
         class="btn btn-outline-success mt-3"
