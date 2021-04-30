@@ -267,7 +267,7 @@ export class AppComponent implements OnInit {
 
       const newQuizzes: QuirkyShapeForSavingNewQuizzes[] = this.getNewlyAddedQuizzes().map(x => ({
         quizName: x.name
-        , quizQuestions: x.questions.map(y => y.name)
+        , quizQuestions: x.questions.map(y => ({question: y.name}))
       }));
 
       const numberOfEditedQuizzesSaved = await this.quizSvc.saveQuizzes(
@@ -281,11 +281,5 @@ export class AppComponent implements OnInit {
     catch (err) {
       console.error(err);
     }
-  }
-
-  detailsFromLeftAnimationState = "leftPosition";
-
-  detailsFromLeftAnimationComplete() {
-    this.detailsFromLeftAnimationState = "leftPosition"
   }
 }
