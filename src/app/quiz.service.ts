@@ -9,9 +9,9 @@ export class QuizService {
 
   constructor(private builtInAngularHttpSvc: HttpClient) { }
 
-  loadQuizzes(): Observable<any[]> {
+  loadQuizzes(): Promise<any[]> {
   
-    return this.builtInAngularHttpSvc.get<any[]>("https://modern-js.azurewebsites.net/api/HttpTriggerJS1?code=8XD3vN3ehHLdZacBQJQhgUnNst9202gdd5VM3kWCytDkz2nXhia6kA==&name=Mystery%20Quiz");
+    return this.builtInAngularHttpSvc.get<any[]>("https://modern-js.azurewebsites.net/api/HttpTriggerJS1?code=8XD3vN3ehHLdZacBQJQhgUnNst9202gdd5VM3kWCytDkz2nXhia6kA==&name=Mystery%20Quiz").toPromise();
   }
 
 

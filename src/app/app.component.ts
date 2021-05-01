@@ -2,6 +2,7 @@ import {
   Component
   , OnInit 
 } from '@angular/core';
+import { updateAwait } from 'typescript';
 
 import { QuizService } from './quiz.service';
 
@@ -21,28 +22,22 @@ export class AppComponent implements OnInit {
   loading = true;
   
   ngOnInit() {
-    this.quizSvc
-      .loadQuizzes()
-      .subscribe(
-        
-        // Lamda with the data
-        (data) => {
-          console.log(data);
-          this.quizzes = data;
-          this.loading =false;
-        }
-
-        // Lamda with the errors, if errors exist
-        , (err) => {
-          console.error(err);
-        this.errorLoadingQuizzes = true;
-        this.loading = false;
-      }
-
-      )
-    ;
-
+ this.loadQuizzesForDisplay();
     console.log(this.quizzes);
+  }
+
+  async loadQuizzesForDisplay() {
+    try{
+      
+      this.quizzes = await this.quizSvc.loadQuizzes();
+      console.log(this.quizzes);
+      this.loading =false;
+    }
+    catch(err){
+      console.error(err);
+      this.errorLoadingQuizzes = true;
+      this.loading = false;
+    }
   }
 
   title = 'quiz-editor';
@@ -83,7 +78,7 @@ export class AppComponent implements OnInit {
     ];
   }
 
-  jsPromisesOne() {
+  async jsPromisesOne() {
     const n = this.quizSvc.getMagicNumber(false);
     console.log(n);
     //promises are also called "thenables...."
@@ -94,5 +89,28 @@ export class AppComponent implements OnInit {
     .catch(err => {
       console.error(err);
     })
+  }
+//modern way to consume promises
+  async jsPromisesTwo() {
+    try{
+      const n = await this.quizSvc.getMagicNumber(true);
+      const n2 = await this.quizSvc.getMagicNumber(false);
+    }
+    catch(err){
+      console.error(err);
+    }
+  }
+
+  async jsPromisesThree (){
+    const n = this.quizSvc.getMagicNumber(true);
+    const n2 = this.quizSvc.getMagicNumber(true);
+    console.log(n, n2);
+    try {
+      const foo = await Promise.race([n, n2]);//whichever comes back first is the winner
+      console.log(foo);
+    }
+    catch(err) {
+      console.error(err);
+    }
   }
 }
