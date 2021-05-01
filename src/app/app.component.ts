@@ -6,6 +6,14 @@ import { updateAwait } from 'typescript';
 
 import { QuizService } from './quiz.service';
 
+interface QuizDisplay {
+  name: string;
+  questions: QuestionDisplay[];
+}
+
+type QuestionDisplay = {
+  name: string;
+}
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,7 +25,7 @@ export class AppComponent implements OnInit {
     private quizSvc: QuizService
   ) {}
 
-  quizzes = [];
+  quizzes: QuizDisplay[] = [];
   errorLoadingQuizzes = false;
   loading = true;
   
@@ -42,7 +50,7 @@ export class AppComponent implements OnInit {
 
   title = 'quiz-editor';
 
-  selectedQuiz = undefined;
+  selectedQuiz: QuizDisplay = undefined;
 
   selectQuiz(q) {
     this.selectedQuiz = q;
