@@ -9,6 +9,7 @@ import { QuizService } from './quiz.service';
 interface QuizDisplay {
   name: string;
   questions: QuestionDisplay[];
+  markedForDelete: boolean;//to mark each independently for deletion
 }
 
 type QuestionDisplay = {
@@ -36,8 +37,8 @@ export class AppComponent implements OnInit {
 
   async loadQuizzesForDisplay() {
     try{
-      
-      this.quizzes = await this.quizSvc.loadQuizzes();
+      //map it to a new object literal with marked for delete button
+      this.quizzes =(await this.quizSvc.loadQuizzes()).map(x=>({name: x.name, questions: x.questions, markedForDelete: false}));
       console.log(this.quizzes);
       this.loading =false;
     }
@@ -61,6 +62,7 @@ export class AppComponent implements OnInit {
     const newQuiz = {
       name: "Untitled Quiz"
       , questions: []
+      , markedForDelete: false
     };
 
     this.quizzes = [
