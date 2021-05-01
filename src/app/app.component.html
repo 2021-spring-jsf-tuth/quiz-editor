@@ -18,7 +18,7 @@
         <button
           *ngFor="let quiz of quizzes"
           class="list-group-item list-group-item-action d-flex justify-content-between"
-          [class.active]="quiz == selectedQuiz"
+          [class.active]="quiz == selectedQuiz" [style.text-decoration]="quiz.markedForDelete ? 'line-through' : 'inherit'"
           (click)="selectQuiz(quiz)"
         >
           {{ quiz.name }}
