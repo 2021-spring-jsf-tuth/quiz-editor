@@ -46,4 +46,7 @@ export class AppComponent implements OnInit {
     this.selectQuiz(newQuiz);
   }
 
+  deleteQuestion(questionToDelete) {
+    this.selectedQuiz.questions = this.selectedQuiz.questions.filter(x => x != questionToDelete);
+  }
 }
