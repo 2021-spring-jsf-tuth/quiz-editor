@@ -49,4 +49,15 @@ export class AppComponent implements OnInit {
   deleteQuestion(questionToDelete) {
     this.selectedQuiz.questions = this.selectedQuiz.questions.filter(x => x != questionToDelete);
   }
-}
+
+  addNewQuestion() {
+    const newQuestion = {
+      name: "Untitled Question"
+    };
+
+    this.selectedQuiz.questions = [
+      ...this.selectedQuiz.questions,
+      newQuestion
+    ];
+  };
+};
