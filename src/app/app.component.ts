@@ -39,7 +39,9 @@ export class AppComponent implements OnInit {
   }
   //creates an array of strings, map to new string, then join arrays together in single string
   generateCheckSum(q): string {
+  //  console.log(q.name + q.questions.map(x => "~" + x.name).join(''));
       return q.name + q.questions.map(x => "~" + x.name).join('');
+      
   }
   async loadQuizzesForDisplay() {
     try{

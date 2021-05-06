@@ -55,7 +55,10 @@
       class="col-md-8"
       *ngIf="selectedQuiz != undefined"
     >
-      <button class="btn btn-outline-dark mt-3">
+      <button class="btn mt-3"
+       [class.btn-outline-dark]="deletedQuizCount + newlyAddedQuizCount + editedQuizCount == 0"
+       [class.btn-dark]="deletedQuizCount + newlyAddedQuizCount + editedQuizCount > 0"
+       >
         Save
         <span class="badge badge-danger ml-1" 
               *ngIf = "deletedQuizCount > 0">
