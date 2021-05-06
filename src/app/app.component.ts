@@ -123,4 +123,8 @@ export class AppComponent implements OnInit {
       console.error(err);
     }
   }
+  cancelAllChanges() {
+    this.loadQuizzesForDisplay();
+    this.selectedQuiz = undefined;
+  }
 }
