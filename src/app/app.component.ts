@@ -10,6 +10,7 @@ interface QuizDisplay {
   name: string;
   questions: QuestionDisplay[];
   markedForDelete: boolean;//to mark each independently for deletion
+  newlyAdded: boolean;
 }
 
 type QuestionDisplay = {
@@ -38,7 +39,7 @@ export class AppComponent implements OnInit {
   async loadQuizzesForDisplay() {
     try{
       //map it to a new object literal with marked for delete button
-      this.quizzes =(await this.quizSvc.loadQuizzes()).map(x=>({name: x.name, questions: x.questions, markedForDelete: false}));
+      this.quizzes =(await this.quizSvc.loadQuizzes()).map(x=>({name: x.name, questions: x.questions, markedForDelete: false, newlyAdded:false}));
       console.log(this.quizzes);
       this.loading =false;
     }
@@ -63,6 +64,7 @@ export class AppComponent implements OnInit {
       name: "Untitled Quiz"
       , questions: []
       , markedForDelete: false
+      , newlyAdded: true
     };
 
     this.quizzes = [
@@ -134,6 +136,14 @@ export class AppComponent implements OnInit {
   //function, returns a quiz display array that are marked for delete
   getDeletedQuizzes(){
     return this.quizzes.filter(x => x.markedForDelete);
+  }
+  //read only property to find the length of the below array
+  get newlyAddedQuizCount(){
+    return this.getNewlyAddedQuizCount().length;
+  }
+  //function, returns a quiz display array that are marked for delete
+  getNewlyAddedQuizCount(){
+    return this.quizzes.filter(x => x.newlyAdded);
   }
 
 
