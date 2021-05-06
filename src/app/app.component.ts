@@ -127,4 +127,15 @@ export class AppComponent implements OnInit {
     this.loadQuizzesForDisplay();
     this.selectedQuiz = undefined;
   }
+  //read only property to find the length of the below array
+  get deletedQuizCount(){
+    return this.getDeletedQuizzes().length;
+  }
+  //function, returns a quiz display array that are marked for delete
+  getDeletedQuizzes(){
+    return this.quizzes.filter(x => x.markedForDelete);
+  }
+
+
+
 }
