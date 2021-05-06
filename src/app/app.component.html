@@ -65,6 +65,10 @@
         *ngIf = "newlyAddedQuizCount > 0">
          +{{ newlyAddedQuizCount }}
         </span>
+        <span class="badge badge-light ml-1" 
+              *ngIf = "editedQuizCount > 0">
+         *{{ editedQuizCount }}
+        </span>
       </button>
       <button class="btn btn-link mt-3" (click)="cancelAllChanges()">
         Cancel

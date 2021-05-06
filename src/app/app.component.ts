@@ -11,6 +11,8 @@ interface QuizDisplay {
   questions: QuestionDisplay[];
   markedForDelete: boolean;//to mark each independently for deletion
   newlyAdded: boolean;
+  //string that represents an unedited quiz
+  naiveChecksum: string;
 }
 
 type QuestionDisplay = {
@@ -35,11 +37,15 @@ export class AppComponent implements OnInit {
  this.loadQuizzesForDisplay();
     console.log(this.quizzes);
   }
-
+  //creates an array of strings, map to new string, then join arrays together in single string
+  generateCheckSum(q): string {
+      return q.name + q.questions.map(x => "~" + x.name).join('');
+  }
   async loadQuizzesForDisplay() {
     try{
       //map it to a new object literal with marked for delete button
-      this.quizzes =(await this.quizSvc.loadQuizzes()).map(x=>({name: x.name, questions: x.questions, markedForDelete: false, newlyAdded:false}));
+      this.quizzes =(await this.quizSvc.loadQuizzes())
+      .map(x=>({name: x.name, questions: x.questions, markedForDelete: false, newlyAdded:false, naiveChecksum: this.generateCheckSum(x)}));
       console.log(this.quizzes);
       this.loading =false;
     }
@@ -65,6 +71,7 @@ export class AppComponent implements OnInit {
       , questions: []
       , markedForDelete: false
       , newlyAdded: true
+      , naiveChecksum: ""
     };
 
     this.quizzes = [
@@ -143,9 +150,17 @@ export class AppComponent implements OnInit {
   }
   //function, returns a quiz display array that are marked for delete
   getNewlyAddedQuizCount(){
-    return this.quizzes.filter(x => x.newlyAdded);
+    return this.quizzes.filter(x => x.newlyAdded && !x.markedForDelete);
   }
 
+  //read only property to find the length of the below array
+  get editedQuizCount(){
+    return this.getEditedQuizCount().length;
+  }
+  //not marked for delete, not newly added, compare to the one from the internet
+  getEditedQuizCount(){
+    return this.quizzes.filter(x => !x.markedForDelete && !x.newlyAdded  && this.generateCheckSum(x) != x.naiveChecksum);
+  }
 
 
 }
