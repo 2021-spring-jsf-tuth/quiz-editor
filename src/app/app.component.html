@@ -8,13 +8,27 @@
         <button
           *ngFor="let quiz of quizzes"
           class="list-group-item list-group-item-action"
+          [class.active]="quiz == selectedQuiz"
+          (click)="selectQuiz(quiz)"
         >
           {{ quiz.name }}
         </button>
       </div>
     </div>
       
-    <div class="col-md-8">
+
+    <div class="col md-8 mt-3">
+      <div class="alert alert-info">
+        <h3>
+          No Quiz Selected
+        </h3>
+        Select of add a new quiz
+      </div>
+    </div>
+    <div 
+      class="col-md-8"
+      *ngIf="selectedQuiz != undefined"  
+    >
       <button class="btn btn-outline-dark mt-3">
         Save
       </button>
