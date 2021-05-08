@@ -1,7 +1,10 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4">
-      <button class="btn btn-outline-success mt-3">
+      <button 
+        class="btn btn-outline-success mt-3"
+        (click)="addQuiz()"
+      >
         Add New Quiz
       </button>
       <div class="list-group mt-3">
@@ -17,7 +20,10 @@
     </div>
       
 
-    <div class="col md-8 mt-3">
+    <div 
+      class="col md-8 mt-3"
+      *ngIf="selectedQuiz == undefined" 
+    >
       <div class="alert alert-info">
         <h3>
           No Quiz Selected
@@ -41,7 +47,11 @@
           General
         </div>
         <div class="card-body">
-          Coming Soon
+          <input 
+            type="text"
+            class="form-control"
+            [(ngModel)]="selectedQuiz.name"
+          />
         </div>
       </div>
 

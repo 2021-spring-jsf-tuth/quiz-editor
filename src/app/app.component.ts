@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
     private quizSvc: QuizService
   )  {}
 
-    quizzes = [];
+  quizzes = [];
 
   ngOnInit() {
     this.quizzes = this.quizSvc.loadQuizzes();
@@ -29,6 +29,17 @@ export class AppComponent implements OnInit {
 
   selectQuiz(q) {
     this.selectedQuiz = q;
+  }
+
+  addQuiz() {
+    this.quizzes = [
+      ...this.quizzes
+      , {
+        name: "Untitled Quiz"
+        , questions: []
+      }
+    
+    ]
   }
 
 }
